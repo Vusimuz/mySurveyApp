@@ -1,158 +1,298 @@
+# MongoDB Node.js Driver
 
-=======
-## Survey Application
+The official [MongoDB](https://www.mongodb.com/) driver for Node.js.
 
-This is a web application that displays survey results, including total surveys, average age, oldest and youngest person, food preferences, and entertainment preferences. The application uses Node.js, Express.js, MongoDB, and HTML/CSS for the server, database, and frontend components.
+**Upgrading to version 5? Take a look at our [upgrade guide here](https://github.com/mongodb/node-mongodb-native/blob/HEAD/etc/notes/CHANGES_5.0.0.md)!**
 
-# Installation
+## Quick Links
 
-To run the Survey Results web application locally, please follow these steps:
+| Site                     | Link                                                                                                              |
+| -------------------------| ----------------------------------------------------------------------------------------------------------------- |
+| Documentation            | [www.mongodb.com/docs/drivers/node](https://www.mongodb.com/docs/drivers/node)                                    |
+| API Docs                 | [mongodb.github.io/node-mongodb-native](https://mongodb.github.io/node-mongodb-native)                            |
+| `npm` package            | [www.npmjs.com/package/mongodb](https://www.npmjs.com/package/mongodb)                                            |
+| MongoDB                  | [www.mongodb.com](https://www.mongodb.com)                                                                        |
+| MongoDB University       | [learn.mongodb.com](https://learn.mongodb.com/catalog?labels=%5B%22Language%22%5D&values=%5B%22Node.js%22%5D)     |
+| MongoDB Developer Center | [www.mongodb.com/developer](https://www.mongodb.com/developer/languages/javascript/)                              |
+| Stack Overflow           | [stackoverflow.com](https://stackoverflow.com/search?q=%28%5Btypescript%5D+or+%5Bjavascript%5D+or+%5Bnode.js%5D%29+and+%5Bmongodb%5D) |
+| Source Code              | [github.com/mongodb/node-mongodb-native](https://github.com/mongodb/node-mongodb-native)                          |
+| Upgrade to v5            | [etc/notes/CHANGES_5.0.0.md](https://github.com/mongodb/node-mongodb-native/blob/HEAD/etc/notes/CHANGES_5.0.0.md) |
+| Contributing             | [CONTRIBUTING.md](https://github.com/mongodb/node-mongodb-native/blob/HEAD/CONTRIBUTING.md)                       |
+| Changelog                | [HISTORY.md](https://github.com/mongodb/node-mongodb-native/blob/HEAD/HISTORY.md)                                 |
 
-# Clone the repository:
-git clone <repository_url>
+### Bugs / Feature Requests
 
-# Install the required dependencies by navigating to the project directory and running:
-npm install
+Think you’ve found a bug? Want to see a new feature in `node-mongodb-native`? Please open a
+case in our issue management tool, JIRA:
 
-# Set up the MongoDB connection by providing your MongoDB database URL in the .env file located in the project's root directory:
-MONGODB_URI=<your_mongodb_url>
+- Create an account and login [jira.mongodb.org](https://jira.mongodb.org).
+- Navigate to the NODE project [jira.mongodb.org/browse/NODE](https://jira.mongodb.org/browse/NODE).
+- Click **Create Issue** - Please provide as much information as possible about the issue type and how to reproduce it.
 
-# Start the server by running:
-npm start
+Bug reports in JIRA for all driver projects (i.e. NODE, PYTHON, CSHARP, JAVA) and the
+Core Server (i.e. SERVER) project are **public**.
 
-Access the web application by opening your browser and visiting http://localhost:3001.
+### Support / Feedback
 
-## Code Structure
+For issues with, questions about, or feedback for the Node.js driver, please look into our [support channels](https://www.mongodb.com/docs/manual/support). Please do not email any of the driver developers directly with issues or questions - you're more likely to get an answer on the [MongoDB Community Forums](https://community.mongodb.com/tags/c/drivers-odms-connectors/7/node-js-driver).
 
-The code for the Survey Results web application is structured as follows:
+### Change Log
 
-server.js: The entry point of the application. Sets up the server, connects to the database, and defines the API routes.
+Change history can be found in [`HISTORY.md`](https://github.com/mongodb/node-mongodb-native/blob/HEAD/HISTORY.md).
 
-models/dataModel.js: Defines the Mongoose schema and model for the survey data. The schema includes fields for the surname, name, contact, currentDate, age, favoriteFoods, and ratings.
+### Compatibility
 
-public/index.html: The HTML file that displays the survey results. It includes JavaScript code to fetch data from the server and populate the values dynamically.
+For version compatibility matrices, please refer to the following links:
 
-public/style.css: The CSS file that styles the HTML elements.
+- [MongoDB](https://www.mongodb.com/docs/drivers/node/current/compatibility/#mongodb-compatibility)
+- [NodeJS](https://www.mongodb.com/docs/drivers/node/current/compatibility/#language-compatibility)
 
-routes/api.js: Defines the API routes for fetching the survey data. It uses the DataModel to interact with the MongoDB database.
-Survey Data Model
+#### Typescript Version
 
-The survey data is stored in a MongoDB database using Mongoose. The DataModel defined in models/dataModel.js represents the data schema and provides an interface to interact with the data. The schema includes the following fields:
+We recommend using the latest version of typescript, however we currently ensure the driver's public types compile against `typescript@4.1.6`.
+This is the lowest typescript version guaranteed to work with our driver: older versions may or may not work - use at your own risk.
+Since typescript [does not restrict breaking changes to major versions](https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes) we consider this support best effort.
+If you run into any unexpected compiler failures against our supported TypeScript versions please let us know by filing an issue on our [JIRA](https://jira.mongodb.org/browse/NODE).
 
-surname (String): The surname of the survey respondent.
-name (String): The name of the survey respondent.
-contact (String): The contact information of the survey respondent.
-currentDate (Date): The date when the survey was submitted.
-age (Number): The age of the survey respondent.
-favoriteFoods (Array of Strings): The favorite foods of the survey respondent.
-ratings (Object): The ratings for different entertainment preferences (eatOut, watchMovies, watchTV, listenToRadio).
+## Installation
 
-## API Routes
+The recommended way to get started using the Node.js 5.x driver is by using the `npm` (Node Package Manager) to install the dependency in your project.
 
-The application provides the following API routes:
+After you've created your own project using `npm init`, you can run:
 
-GET /api/survey-data: Retrieves the survey data from the database and returns it as JSON. This data is used to populate the survey results in the HTML file.
+```bash
+npm install mongodb
+# or ...
+yarn add mongodb
+```
 
-## Dependencies
+This will download the MongoDB driver and add a dependency entry in your `package.json` file.
 
-The Survey Results web application uses the following major dependencies:
+If you are a Typescript user, you will need the Node.js type definitions to use the driver's definitions:
 
-express: A minimal and flexible web application framework for Node.js.
-mongoose: An Object Data Modeling (ODM) library for MongoDB and Node.js.
-dotenv: A module to load environment variables from a .env file.
+```sh
+npm install -D @types/node
+```
 
-## Conclusion
+## Driver Extensions
 
-The Survey Results web application provides an interface to view and analyze survey data. By following the installation instructions, you can set up the application locally and explore the survey results in your browser.
+The MongoDB driver can optionally be enhanced by the following feature packages:
 
-For any questions or issues, please contact Teddyvusimasina@gmail.com.
->>>>>>> origin/main
+Maintained by MongoDB:
 
-## INSPIRATION
+- Zstd network compression - [@mongodb-js/zstd](https://github.com/mongodb-js/zstd)
+- MongoDB field level and queryable encryption - [mongodb-client-encryption](https://github.com/mongodb/libmongocrypt#readme)
+- GSSAPI / SSPI / Kerberos authentication - [kerberos](https://github.com/mongodb-js/kerberos)
 
-# Test Assignment
-The purpose of this assignment is to get the candidate to undertake a small project in the language of your choice that covers the basics of the following:-
+Some of these packages include native C++ extensions.
+Consult the [trouble shooting guide here](https://github.com/mongodb/node-mongodb-native/blob/HEAD/etc/notes/native-extensions.md) if you run into compilation issues.
 
-1. Create a user interface where a person can enter data
-2. Save the data that was entered into a database of your choice
-3. Use the database to calculate/derive some values.
-The application to be developed is one for collecting survey data about people’s lifestyle preferences. We would like you to create a desktop app, web app or mobile app that can be placed in a public space where people can fill out a survey. It is hoped that many people would fill out the survey so that we can analyse the data collected to make sense of it. You are welcome to get in touch with us to seek clarification on these requirements.
+Third party:
 
-# Duration
-You will have 1 week to complete assignment from the date you receive it.
+- Snappy network compression - [snappy](https://github.com/Brooooooklyn/snappy)
+- AWS authentication - [@aws-sdk/credential-providers](https://github.com/aws/aws-sdk-js-v3/tree/main/packages/credential-providers)
 
-# Deliverables
-Upon completion of the assignment, you will be expected to meet with us so that you can do the following:-
- Do a demo of the app on your PC
- Be able to explain the architecture and design decisions.
- All source code to be made available for discussion. You will be asked to explain parts of your code.
- Share the completed project with us at internship@tshimologong.joburg through a git repository (such as GitHub, BitBucket, etc).
+## Quick Start
 
-# Rules
-1. You are required to undertake the work yourself.
-2. You are permitted to use unlimited resources on the web.
-3. As this application will never go into production, please disregard any concerns related to the
-POPI act or any other legislation regarding the protection of personal information.
-4. You are welcome to get in touch with us to seek clarification on these requirements.
-5. Please note that the screens shown in this document are only meant to convey the ideas
-(wireframes). The appearance of the screen will be determined by the environment in which you develop but you should be mindful of it being user-friendly.
+This guide will show you how to set up a simple application using Node.js and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the [official documentation](https://www.mongodb.com/docs/drivers/node/).
 
-# Specifications
-The specifications for the application are now given.
+### Create the `package.json` file
 
-# User Interface
-For the user interface, there are 3 screens that need to be created.
+First, create a directory where your application will live.
 
-# Screen 1
-When the application starts up the user will be presented with a screen with the following two options.
+```bash
+mkdir myProject
+cd myProject
+```
 
-<img align="center" alt="Coding" width="100%" height="50%" src="screen1.jpeg">
+Enter the following command and answer the questions to create the initial structure for your new project:
 
-Clicking on the first button will take the user to Screen 2. Clicking the second button will take the user to screen 3.
+```bash
+npm init -y
+```
 
-<img align="center" alt="Coding" width="100%" height="50%" src="screen2.jpg">
+Next, install the driver as a dependency.
 
-The personal details are just text boxes. The question about favourite food uses checkboxes. This will allow the user to select more than one. The last question about the rating uses radio buttons and will permit the user to choose only one. The selected response is converted to a number from 1 to 5.
-When the user clicks on submit, the data must be written to a database of your choice. After that, the user must be returned to the main menu (Screen 1 discussed above).
-In this way, many surveys can be done by users.
+```bash
+npm install mongodb
+```
 
-<img align="center" alt="Coding" width="100%" height="50%" src="screen3.jpeg">
+### Start a MongoDB Server
 
-The expected calculations are as follows:-
- The Total number of surveys completed. This is just a count of the total number of rows in the
-database.
+For complete MongoDB installation instructions, see [the manual](https://www.mongodb.com/docs/manual/installation/).
 
- Average age of the people that participated in the survey
+1. Download the right MongoDB version from [MongoDB](https://www.mongodb.org/downloads)
+2. Create a database directory (in this case under **/data**).
+3. Install and start a `mongod` process.
 
- Oldest person that participated in the survey
+```bash
+mongod --dbpath=/data
+```
 
- Youngest person that participated in the survey.
+You should see the **mongod** process start up and print some status information.
 
- Percentage of people who like Pizza is calculated by the number of people that like Pizza divided
-by the total number of surveys. Multiply by 100 to get the percentage. Present the result rounded
-off to 1 decimal place.
+### Connect to MongoDB
 
- People like to eat out is calculated by working out the average of the rating. Present the result
-rounded off to 1 decimal place.
+Create a new **app.js** file and add the following code to try out some basic CRUD
+operations using the MongoDB driver.
 
-When the user clicks on OK button the user must be returned to the main menu (Screen 1 discussed above).
+Add code to connect to the server and the database **myProject**:
 
-# Optional
+> **NOTE:** Resolving DNS Connection issues
+>
+> Node.js 18 changed the default DNS resolution ordering from always prioritizing ipv4 to the ordering
+> returned by the DNS provider. In some environments, this can result in `localhost` resolving to
+> an ipv6 address instead of ipv4 and a consequent failure to connect to the server.
+>
+> This can be resolved by:
+>
+> - specifying the ip address family using the MongoClient `family` option (`MongoClient(<uri>, { family: 4 } )`)
+> - launching mongod or mongos with the ipv6 flag enabled ([--ipv6 mongod option documentation](https://www.mongodb.com/docs/manual/reference/program/mongod/#std-option-mongod.--ipv6))
+> - using a host of `127.0.0.1` in place of localhost
+> - specifying the DNS resolution ordering with the `--dns-resolution-order` Node.js command line argument (e.g. `node --dns-resolution-order=ipv4first`)
 
-If you wish to challenge yourself you may explore the following options. These tasks should only be considered once all functionality above has been achieved.
+```js
+const { MongoClient } = require('mongodb');
+// or as an es module:
+// import { MongoClient } from 'mongodb'
 
- -Validate the fields. Check that the user has not left any of the text fields empty before they submit.
+// Connection URL
+const url = 'mongodb://localhost:27017';
+const client = new MongoClient(url);
 
- -The user may NOT enter a value for Age that is less than 5 and should not be more than 120.
+// Database Name
+const dbName = 'myProject';
 
- -Ensure that the user has actually selected a rating for each of the four rating questions. They
-cannot submit a survey without selecting a rating.
+async function main() {
+  // Use connect method to connect to the server
+  await client.connect();
+  console.log('Connected successfully to server');
+  const db = client.db(dbName);
+  const collection = db.collection('documents');
 
- -Styling the screens so that it looks modern and user-friendly.
+  // the following code examples can be pasted here...
 
- -Where the user is expected to enter the date, use a date picker.
+  return 'done.';
+}
 
+main()
+  .then(console.log)
+  .catch(console.error)
+  .finally(() => client.close());
+```
 
+Run your app from the command line with:
 
+```bash
+node app.js
+```
 
+The application should print **Connected successfully to server** to the console.
 
+### Insert a Document
+
+Add to **app.js** the following function which uses the **insertMany**
+method to add three documents to the **documents** collection.
+
+```js
+const insertResult = await collection.insertMany([{ a: 1 }, { a: 2 }, { a: 3 }]);
+console.log('Inserted documents =>', insertResult);
+```
+
+The **insertMany** command returns an object with information about the insert operations.
+
+### Find All Documents
+
+Add a query that returns all the documents.
+
+```js
+const findResult = await collection.find({}).toArray();
+console.log('Found documents =>', findResult);
+```
+
+This query returns all the documents in the **documents** collection.
+If you add this below the insertMany example you'll see the document's you've inserted.
+
+### Find Documents with a Query Filter
+
+Add a query filter to find only documents which meet the query criteria.
+
+```js
+const filteredDocs = await collection.find({ a: 3 }).toArray();
+console.log('Found documents filtered by { a: 3 } =>', filteredDocs);
+```
+
+Only the documents which match `'a' : 3` should be returned.
+
+### Update a document
+
+The following operation updates a document in the **documents** collection.
+
+```js
+const updateResult = await collection.updateOne({ a: 3 }, { $set: { b: 1 } });
+console.log('Updated documents =>', updateResult);
+```
+
+The method updates the first document where the field **a** is equal to **3** by adding a new field **b** to the document set to **1**. `updateResult` contains information about whether there was a matching document to update or not.
+
+### Remove a document
+
+Remove the document where the field **a** is equal to **3**.
+
+```js
+const deleteResult = await collection.deleteMany({ a: 3 });
+console.log('Deleted documents =>', deleteResult);
+```
+
+### Index a Collection
+
+[Indexes](https://www.mongodb.com/docs/manual/indexes/) can improve your application's
+performance. The following function creates an index on the **a** field in the
+**documents** collection.
+
+```js
+const indexName = await collection.createIndex({ a: 1 });
+console.log('index name =', indexName);
+```
+
+For more detailed information, see the [indexing strategies page](https://www.mongodb.com/docs/manual/applications/indexes/).
+
+## Error Handling
+
+If you need to filter certain errors from our driver we have a helpful tree of errors described in [etc/notes/errors.md](https://github.com/mongodb/node-mongodb-native/blob/HEAD/etc/notes/errors.md).
+
+It is our recommendation to use `instanceof` checks on errors and to avoid relying on parsing `error.message` and `error.name` strings in your code.
+We guarantee `instanceof` checks will pass according to semver guidelines, but errors may be sub-classed or their messages may change at any time, even patch releases, as we see fit to increase the helpfulness of the errors.
+
+Any new errors we add to the driver will directly extend an existing error class and no existing error will be moved to a different parent class outside of a major release.
+This means `instanceof` will always be able to accurately capture the errors that our driver throws.
+
+```typescript
+const client = new MongoClient(url);
+await client.connect();
+const collection = client.db().collection('collection');
+
+try {
+  await collection.insertOne({ _id: 1 });
+  await collection.insertOne({ _id: 1 }); // duplicate key error
+} catch (error) {
+  if (error instanceof MongoServerError) {
+    console.log(`Error worth logging: ${error}`); // special case for some reason
+  }
+  throw error; // still want to crash
+}
+```
+
+## Next Steps
+
+- [MongoDB Documentation](https://www.mongodb.com/docs/manual/)
+- [MongoDB Node Driver Documentation](https://www.mongodb.com/docs/drivers/node/)
+- [Read about Schemas](https://www.mongodb.com/docs/manual/core/data-modeling-introduction/)
+- [Star us on GitHub](https://github.com/mongodb/node-mongodb-native)
+
+## License
+
+[Apache 2.0](LICENSE.md)
+
+© 2012-present MongoDB [Contributors](https://github.com/mongodb/node-mongodb-native/blob/HEAD/CONTRIBUTORS.md) \
+© 2009-2012 Christian Amor Kvalheim
