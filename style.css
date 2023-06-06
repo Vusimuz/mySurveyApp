@@ -1,0 +1,90 @@
+body {
+    display: block;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 50px;
+}
+.container{
+    text-align: center;
+    display: block;
+}
+
+.btn-container {
+    justify-content: center;
+    margin-top: 15%;
+}
+
+.btn-container .fill {
+    justify-content: center;
+    margin: 20px;
+    padding: 15px 40px;
+    font-size: 20px;
+    background-color: #20b9fc;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.5s;
+    border: none;
+    font-weight: 500;
+   font-style: italic;
+}
+
+.btn-container .view{
+    padding: 15px 25px;
+    font-size: 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.5s;
+    border: none;
+    font-weight: 500;
+   font-style: italic;
+}
+
+.btn-container button:hover {
+    background-color: #badbe9;
+    color: #000;
+}
+.btn-container a{
+    text-decoration: none;
+}
+
+form {
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+th {
+    text-align: left;
+}
+
+.submit{
+    text-align: center;
+    padding: 10px 70px;
+    font-size: 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.5s;
+    border: none;
+    font-weight: 500;
+   font-style: italic;
+}
+.submit:hover {
+    background-color: #badbe9;
+    color: #000;
+}
+
+  
+

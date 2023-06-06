@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Survey Results</title>
+  <style>
+    
+    table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  .tresults{
+    background-color: #badbe9;
+    color: #000;
+  }
+  </style>
+
+</head>
+<body>
+  <h1>Survey Results</h1>
+
+  <div class="tresults">
+    <tr>
+      <th>Total Surveys</th>
+      <td id="totalSurveys"></td>
+    </tr>
+    <tr>
+      <th>Average Age</th>
+      <td id="averageAge"></td>
+    </tr>
+    <tr>
+      <th>Oldest Person</th>
+      <td id="oldestPerson"></td>
+    </tr>
+    <tr>
+      <th>Youngest Person</th>
+      <td id="youngestPerson"></td>
+    </tr>
+  </div>
+
+  <h2>Food Preferences</h2>
+  <table class="tresults">
+    <tr>
+      <th>Preference</th>
+      <th>Percentage</th>
+    </tr>
+    <tr>
+      <td>Pizza</td>
+      <td id="pizzaPercentage"></td>
+    </tr>
+    <tr>
+      <td>Pasta</td>
+      <td id="pastaPercentage"></td>
+    </tr>
+    <tr>
+      <td>Pap & Wors</td>
+      <td id="papWorsPercentage"></td>
+    </tr>
+  </table>
+
+  <h2>Entertainment Preferences</h2>
+  <table class="tresults">
+    <tr>
+      <th>Preference</th>
+      <th>Average of Rating</th>
+    </tr>
+    <tr>
+      <td>Eat Out</td>
+      <td id="eatOutRating"></td>
+    </tr>
+    <tr>
+      <td>Watch Movies</td>
+      <td id="watchMoviesRating"></td>
+    </tr>
+    <tr>
+      <td>Watch TV</td>
+      <td id="watchTVRating"></td>
+    </tr>
+    <tr>
+      <td>Listen to Radio</td>
+      <td id="listenToRadioRating"></td>
+    </tr>
+  </table>
+
+  <script>
+    
+    function setTextContent(elementId, text) {
+      const element = document.getElementById(elementId);
+      if (element) {
+        element.textContent = text;
+      }
+    }
+
+    
+    fetch('/api/survey-data')  
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+       
+        setTextContent("totalSurveys", data.totalSurveys + " Surveys");
+        setTextContent("averageAge", data.averageAge + " Years");
+        setTextContent("oldestPerson", data.oldestPerson + " Years");
+        setTextContent("youngestPerson", data.youngestPerson + " Years");
+        setTextContent("pizzaPercentage", data.pizzaPercentage + "%");
+        setTextContent("pastaPercentage", data.pastaPercentage + "%");
+        setTextContent("papWorsPercentage", data.papWorsPercentage + "%");
+        setTextContent("eatOutRating", data.eatOutRating);
+        setTextContent("watchMoviesRating", data.watchMoviesRating);
+        setTextContent("watchTVRating", data.watchTVRating);
+        setTextContent("listenToRadioRating", data.listenToRadioRating);
+      })
+      .catch(function(error) {
+        console.log('Error:', error);
+      });
+  </script>
+</body>
+</html>
+

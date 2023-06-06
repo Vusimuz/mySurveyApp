@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DataEntryForm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Take Our Survey</h1>
+    <form id="surveyForm">
+        <h3>Personal Information</h3>
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" name="surname" required><br><br>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="contact">Contact:</label>
+        <input type="text" id="contact" name="contact" required><br><br>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <h3>Whats your Favourite food(you can choose more than 1 answer)</h3>
+        <input type="checkbox" id="checkbox1" name="checkbox1">
+        <label for="checkbox1">Pizza</label><br>
+        <input type="checkbox" id="checkbox2" name="checkbox2">
+        <label for="checkbox2">Pasta</label><br>
+        <input type="checkbox" id="checkbox3" name="checkbox3">
+        <label for="checkbox3">Pap % Wors</label><br>
+        <input type="checkbox" id="checkbox4" name="checkbox4">
+        <label for="checkbox4">Chicken Stir Fry</label><br>
+        <input type="checkbox" id="checkbox5" name="checkbox5">
+        <label for="checkbox5">Beef Stir Fry</label><br>
+        <input type="checkbox" id="checkbox6" name="checkbox6">
+        <label for="checkbox6">Others</label><br><br>
+
+        <h3>On a scale of 1 to 5 indicate whether you strongly agree or strongly disagree</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Strongly Agree(1)</th>
+                    <th>Agree(2)</th>
+                    <th>Neutral(3)</th>
+                    <th>Disagree(4)</th>
+                    <th>Strongly Disagree(5)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>I like to eat out</td>
+                    <td><input type="radio" name="option1" value="1"></td>
+                    <td><input type="radio" name="option1" value="2"></td>
+                    <td><input type="radio" name="option1" value="3"></td>
+                    <td><input type="radio" name="option1" value="4"></td>
+                    <td><input type="radio" name="option1" value="5"></td>
+                </tr>
+                <tr>
+                    <td>I like to watch movies</td>
+                    <td><input type="radio" name="option2" value="1"></td>
+                    <td><input type="radio" name="option2" value="2"></td>
+                    <td><input type="radio" name="option2" value="3"></td>
+                    <td><input type="radio" name="option2" value="4"></td>
+                    <td><input type="radio" name="option2" value="5"></td>
+                </tr>
+                <tr>
+                    <td>I like to watch TV</td>
+                    <td><input type="radio" name="option3" value="1"></td>
+                    <td><input type="radio" name="option3" value="2"></td>
+                    <td><input type="radio" name="option3" value="3"></td>
+                    <td><input type="radio" name="option3" value="4"></td>
+                    <td><input type="radio" name="option3" value="5"></td>
+                </tr>
+                <tr>
+                    <td>I like to listen to radio</td>
+                    <td><input type="radio" name="option4" value="1"></td>
+                    <td><input type="radio" name="option4" value="2"></td>
+                    <td><input type="radio" name="option4" value="3"></td>
+                    <td><input type="radio" name="option4" value="4"></td>
+                    <td><input type="radio" name="option4" value="5"></td>
+                </tr>
+            </tbody>
+        </table><br>
+
+        <div style="text-align: center;">
+            <input class="submit" type="submit" value="Submit &#8594;">
+        </div>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("surveyForm").addEventListener("submit", function(event) {
+                event.preventDefault(); 
+
+                
+                var surname = document.getElementById("surname").value;
+                var name = document.getElementById("name").value;
+                var contact = document.getElementById("contact").value;
+                var currentDate = document.getElementById("date").value;
+                var age = document.getElementById("age").value;
+
+                var favoriteFoods = [];
+                if (document.getElementById("checkbox1").checked) {
+                    favoriteFoods.push("Pizza");
+                }
+                if (document.getElementById("checkbox2").checked) {
+                    favoriteFoods.push("Pasta");
+                }
+                if (document.getElementById("checkbox3").checked) {
+                    favoriteFoods.push("Pap % Wors");
+                }
+                if (document.getElementById("checkbox4").checked) {
+                    favoriteFoods.push("Chicken Stir Fry");
+                }
+                if (document.getElementById("checkbox5").checked) {
+                    favoriteFoods.push("Beef Stir Fry");
+                }
+                if (document.getElementById("checkbox6").checked) {
+                    favoriteFoods.push("Others");
+                }
+
+                var ratings = {
+                    eatOut: parseInt(document.querySelector('input[name="option1"]:checked').value),
+                    watchMovies: parseInt(document.querySelector('input[name="option2"]:checked').value),
+                    watchTV: parseInt(document.querySelector('input[name="option3"]:checked').value),
+                    listenToRadio: parseInt(document.querySelector('input[name="option4"]:checked').value)
+                };
+
+              
+                var formData = {
+                    surname: surname,
+                    name: name,
+                    contact: contact,
+                    currentDate: currentDate,
+                    age: parseInt(age),
+                    favoriteFoods: favoriteFoods,
+                    ratings: ratings
+                };
+
+                
+                fetch('/DataEntry', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(function(response) {
+                    
+                    console.log(response);
+                    
+                })
+                .catch(function(error) {
+                   
+                    console.error(error);
+                    
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+
